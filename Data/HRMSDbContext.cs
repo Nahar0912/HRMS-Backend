@@ -15,21 +15,18 @@ namespace HRMS.Backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Employee - Salary relationship (1-to-many)
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.Salaries)
                 .WithOne(s => s.Employee)
                 .HasForeignKey(s => s.EmployeeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Employee - Payroll relationship (1-to-many)
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.Payrolls)
                 .WithOne(p => p.Employee)
                 .HasForeignKey(p => p.EmployeeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Unique constraints
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

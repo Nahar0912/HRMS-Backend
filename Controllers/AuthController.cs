@@ -46,7 +46,6 @@ namespace HRMS.Backend.Controllers
                 IsActive = true
             };
 
-            // Hash the password
             user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
 
             _context.Users.Add(user);
@@ -70,7 +69,6 @@ namespace HRMS.Backend.Controllers
             if (user == null || !user.IsActive)
                 return Unauthorized("Invalid credentials");
 
-            // Verify password
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
             if (result == PasswordVerificationResult.Failed)
                 return Unauthorized("Invalid credentials");

@@ -27,7 +27,6 @@ namespace HRMS.Backend.Services
 
             var created = await _repository.AddAsync(salary);
 
-            // Update payroll if exists for this month
             await UpdatePayrollForEmployee(created.EmployeeId);
 
             return _mapper.Map<SalaryDTO>(created);
@@ -78,9 +77,6 @@ namespace HRMS.Backend.Services
             return deleted;
         }
 
-        /// <summary>
-        /// Updates all payrolls for an employee based on the latest salary
-        /// </summary>
         private async Task UpdatePayrollForEmployee(int employeeId)
         {
             var payrolls = await _payrollRepository.GetByEmployeeIdAsync(employeeId);

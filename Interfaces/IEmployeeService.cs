@@ -6,5 +6,5 @@ public interface IEmployeeService
     Task<EmployeeDTO?> UpdateAsync(int id, EmployeeUpdateDTO dto);
     Task<bool> DeleteAsync(int id);
     Task<EmployeeDTO?> GetByIdAsync(int id);
-    Task<IEnumerable<EmployeeDTO>> GetAllAsync(); // remove search parameters
+    Task<IEnumerable<EmployeeDTO>> GetAllAsync(); 
 }

@@ -163,3 +163,4 @@
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/ref/HRMS-Backend.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.sourcelink.json

@@ -3698,11 +3698,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj",
+      "projectUniqueName": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj",
       "projectName": "HRMS-Backend",
-      "projectPath": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj",
+      "projectPath": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj",
       "packagesPath": "/Users/nazmunnaharanika/.nuget/packages/",
-      "outputPath": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/obj/",
+      "outputPath": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/nazmunnaharanika/.nuget/NuGet/NuGet.Config"
@@ -4210,5 +4210,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'AutoMapper' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

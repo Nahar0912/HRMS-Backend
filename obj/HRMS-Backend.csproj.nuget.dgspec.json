@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj": {}
+    "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj": {}
   },
   "projects": {
-    "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj": {
+    "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj",
+        "projectUniqueName": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj",
         "projectName": "HRMS-Backend",
-        "projectPath": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/HRMS-Backend.csproj",
+        "projectPath": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/HRMS-Backend.csproj",
         "packagesPath": "/Users/nazmunnaharanika/.nuget/packages/",
-        "outputPath": "/Users/nazmunnaharanika/Downloads/HRMS/HRMS-Backend/obj/",
+        "outputPath": "/Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nazmunnaharanika/.nuget/NuGet/NuGet.Config"

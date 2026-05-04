@@ -35,7 +35,6 @@ namespace HRMS.Backend.Repositories
             return await _context.Employees.ToListAsync();
         }
 
-        // Nullable return type
         public async Task<Employee?> GetByIdAsync(int id)
         {
             return await _context.Employees.FindAsync(id);

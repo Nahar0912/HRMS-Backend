@@ -26,7 +26,7 @@ namespace HRMS.Backend.Services
             _mapper = mapper;
         }
 
-        // Create payroll for single employee
+        // Create payroll 
         public async Task<PayrollDTO> CreateAsync(PayrollCreateDTO dto)
         {
             var existing = await _repository.GetByEmployeeAndMonthAsync(dto.EmployeeId, dto.PayrollMonth);
@@ -102,20 +102,18 @@ namespace HRMS.Backend.Services
             return await _repository.DeleteAsync(id);
         }
 
-        // Generate payrolls for all employees for a given month
+        // Generate payrolls 
         public async Task<IEnumerable<PayrollDTO>> GenerateMonthlyPayrollsAsync(DateTime month)
         {
-            // Get all employees
             var employees = await _employeeRepository.GetAllAsync();
             var createdPayrolls = new List<Payroll>();
 
             foreach (var emp in employees)
             {
-                // Skip if payroll already exists
+
                 var existing = await _repository.GetByEmployeeAndMonthAsync(emp.Id, month);
                 if (existing != null) continue;
 
-                // Get latest salary
                 var salaries = await _salaryRepository.GetByEmployeeIdAsync(emp.Id);
                 var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).FirstOrDefault();
                 if (latestSalary == null) continue;
