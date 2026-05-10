@@ -3,11 +3,10 @@ using HRMS.Backend.DTOs;
 using HRMS.Backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace HRMS.Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SalaryController : ControllerBase
     {
@@ -39,7 +38,7 @@ namespace HRMS.Backend.Controllers
             return Ok(salary);
         }
 
-        // POST: api/Salary
+        // POST:Salary
         [HttpPost]
         [Authorize]    
         public async Task<IActionResult> Create([FromBody] SalaryCreateDTO dto)

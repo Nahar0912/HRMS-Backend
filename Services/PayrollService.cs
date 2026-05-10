@@ -14,11 +14,7 @@ namespace HRMS.Backend.Services
 
         private const decimal TAX_PERCENTAGE = 0.10m; 
 
-        public PayrollService(
-            IPayrollRepository repository,
-            ISalaryRepository salaryRepository,
-            IEmployeeRepository employeeRepository,
-            IMapper mapper)
+        public PayrollService( IPayrollRepository repository, ISalaryRepository salaryRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _repository = repository;
             _salaryRepository = salaryRepository;

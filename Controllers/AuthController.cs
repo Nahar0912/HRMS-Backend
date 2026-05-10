@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace HRMS.Backend.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly HRMSDbContext _context;
@@ -27,7 +27,7 @@ namespace HRMS.Backend.Controllers
             _passwordHasher = new PasswordHasher<User>();
         }
 
-        // ------------------- REGISTER -------------------
+        // REGISTER
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
@@ -58,7 +58,7 @@ namespace HRMS.Backend.Controllers
             });
         }
 
-        // ------------------- LOGIN -------------------
+        // LOGIN 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
@@ -89,7 +89,7 @@ namespace HRMS.Backend.Controllers
         }
 
 
-        // ------------------- JWT TOKEN GENERATOR -------------------
+        //JWT TOKEN GENERATOR
         private string GenerateJwtToken(User user)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
