@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace HRMS.Backend.Models
 {
     public class Salary

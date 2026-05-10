@@ -2,9 +2,7 @@ using HRMS.Backend.Data;
 using HRMS.Backend.Interfaces;
 using HRMS.Backend.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace HRMS.Backend.Repositories
 {

@@ -7,10 +7,11 @@
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/HRMS-Backend.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/HRMS-Backend.pdb
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/AutoMapper.dll
-/Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Azure.Core.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Azure.Identity.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Humanizer.dll
+/Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.Bcl.Cryptography.dll
@@ -146,6 +147,7 @@
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.csproj.CoreCompileInputs.cache
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.MvcApplicationPartsAssemblyInfo.cs
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.MvcApplicationPartsAssemblyInfo.cache
+/Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.sourcelink.json
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/rjimswa.dswa.cache.json
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
@@ -161,6 +163,3 @@
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.pdb
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.genruntimeconfig.cache
 /Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/ref/HRMS-Backend.dll
-/Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
-/Users/nazmunnaharanika/Downloads/HRMS-Backend/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-/Users/nazmunnaharanika/Downloads/HRMS-Backend/obj/Debug/net10.0/HRMS-Backend.sourcelink.json

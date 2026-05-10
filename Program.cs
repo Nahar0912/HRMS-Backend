@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // ------------------- AutoMapper -------------------
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfile).Assembly);
 
 // ------------------- CORS -------------------
 builder.Services.AddCors(options =>

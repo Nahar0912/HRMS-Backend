@@ -1,6 +1,4 @@
 using HRMS.Backend.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HRMS.Backend.Interfaces
 {
