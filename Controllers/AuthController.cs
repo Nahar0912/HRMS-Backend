@@ -74,7 +74,6 @@ namespace HRMS.Backend.Controllers
                 return Unauthorized("Invalid credentials");
 
             var token = GenerateJwtToken(user);
-
             return Ok(new
             {
                 Token = token,

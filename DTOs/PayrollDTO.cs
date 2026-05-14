@@ -31,7 +31,6 @@ namespace HRMS.Backend.DTOs
     {
         [Range(0, double.MaxValue)]
         public decimal? Tax { get; set; }
-
         public DateTime? PayrollMonth { get; set; }
     }
 }

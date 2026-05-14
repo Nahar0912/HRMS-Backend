@@ -27,9 +27,7 @@ namespace HRMS.Backend.Repositories
 
         public async Task<IEnumerable<Salary>> GetAllAsync()
         {
-            return await _context.Salaries
-                                 .Include(s => s.Employee)
-                                 .ToListAsync();
+            return await _context.Salaries.Include(s => s.Employee).ToListAsync();
         }
 
         public async Task<Salary?> GetByIdAsync(int id)
@@ -39,9 +37,7 @@ namespace HRMS.Backend.Repositories
 
         public async Task<IEnumerable<Salary>> GetByEmployeeIdAsync(int employeeId)
         {
-            return await _context.Salaries
-                                 .Where(s => s.EmployeeId == employeeId)
-                                 .ToListAsync();
+            return await _context.Salaries.Where(s => s.EmployeeId == employeeId).ToListAsync();
         }
 
         public async Task<Salary> UpdateAsync(Salary salary)

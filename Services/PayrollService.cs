@@ -36,7 +36,7 @@ namespace HRMS.Backend.Services
 
             decimal totalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
 
-            // Calculate tax automatically
+            // Calculate tax 
             decimal tax = totalSalary * TAX_PERCENTAGE;
             decimal netSalary = totalSalary - tax;
 
@@ -55,21 +55,18 @@ namespace HRMS.Backend.Services
             return _mapper.Map<PayrollDTO>(created);
         }
 
-        // Get all payrolls
         public async Task<IEnumerable<PayrollDTO>> GetAllAsync()
         {
             var payrolls = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<PayrollDTO>>(payrolls);
         }
 
-        // Get payroll by id
         public async Task<PayrollDTO?> GetByIdAsync(int id)
         {
             var payroll = await _repository.GetByIdAsync(id);
             return payroll == null ? null : _mapper.Map<PayrollDTO>(payroll);
         }
 
-        // Update payroll
         public async Task<PayrollDTO?> UpdateAsync(int id, PayrollUpdateDTO dto)
         {
             var payroll = await _repository.GetByIdAsync(id);
@@ -92,13 +89,11 @@ namespace HRMS.Backend.Services
             return _mapper.Map<PayrollDTO>(updated);
         }
 
-        // Delete payroll
         public async Task<bool> DeleteAsync(int id)
         {
             return await _repository.DeleteAsync(id);
         }
 
-        // Generate payrolls 
         public async Task<IEnumerable<PayrollDTO>> GenerateMonthlyPayrollsAsync(DateTime month)
         {
             var employees = await _employeeRepository.GetAllAsync();

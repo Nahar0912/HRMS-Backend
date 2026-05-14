@@ -38,8 +38,6 @@ namespace HRMS.Backend.Data
             modelBuilder.Entity<Employee>()
                 .HasIndex(e => e.AccountNumber)
                 .IsUnique();
-
-                
         }
     }
 }

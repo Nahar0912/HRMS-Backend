@@ -23,9 +23,7 @@ namespace HRMS.Backend.Repositories
 
         public async Task<IEnumerable<Payroll>> GetAllAsync()
         {
-            return await _context.Payrolls
-                                 .Include(p => p.Employee)
-                                 .ToListAsync();
+            return await _context.Payrolls.Include(p => p.Employee).ToListAsync();
         }
 
         public async Task<Payroll?> GetByIdAsync(int id)
@@ -35,17 +33,16 @@ namespace HRMS.Backend.Repositories
 
         public async Task<IEnumerable<Payroll>> GetByEmployeeIdAsync(int employeeId)
         {
-            return await _context.Payrolls
-                                 .Where(p => p.EmployeeId == employeeId)
-                                 .ToListAsync();
+            return await _context.Payrolls.Where(p => p.EmployeeId == employeeId).ToListAsync();
         }
 
         public async Task<Payroll?> GetByEmployeeAndMonthAsync(int employeeId, DateTime payrollMonth)
         {
-            return await _context.Payrolls
-                                 .FirstOrDefaultAsync(p => p.EmployeeId == employeeId 
-                                                           && p.PayrollMonth.Month == payrollMonth.Month
-                                                           && p.PayrollMonth.Year == payrollMonth.Year);
+            return await _context.Payrolls.FirstOrDefaultAsync(
+                p => p.EmployeeId == employeeId
+                && p.PayrollMonth.Month == payrollMonth.Month
+                && p.PayrollMonth.Year == payrollMonth.Year
+            );
         }
 
         public async Task<Payroll> UpdateAsync(Payroll payroll)

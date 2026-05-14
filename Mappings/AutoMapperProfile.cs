@@ -22,8 +22,7 @@ namespace HRMS.Backend.Mappings
 
             // Payroll mappings
             CreateMap<PayrollCreateDTO, Payroll>();
-            CreateMap<PayrollUpdateDTO, Payroll>()
-                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<PayrollUpdateDTO, Payroll>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<Payroll, PayrollDTO>()
                 .ForMember(dest => dest.PayrollMonth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.PayrollMonth, DateTimeKind.Utc)))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedAt, DateTimeKind.Utc)))

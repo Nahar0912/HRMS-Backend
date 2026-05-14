@@ -47,8 +47,7 @@ namespace HRMS.Backend.Services
 
         public async Task<IEnumerable<EmployeeDTO>> GetAllAsync()
         {
-            var employees = await _repository.GetAllAsync(); // fetch all
-
+            var employees = await _repository.GetAllAsync(); 
             return _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
         }
 

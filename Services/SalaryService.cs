@@ -46,7 +46,6 @@ namespace HRMS.Backend.Services
 
             var updated = await _repository.UpdateAsync(salary);
 
-            // Update payroll for this employee
             await UpdatePayrollForEmployee(updated.EmployeeId);
 
             return _mapper.Map<SalaryDTO>(updated);
@@ -71,7 +70,6 @@ namespace HRMS.Backend.Services
 
             var deleted = await _repository.DeleteAsync(id);
 
-            // Update payroll for this employee
             await UpdatePayrollForEmployee(salary.EmployeeId);
 
             return deleted;
@@ -83,8 +81,9 @@ namespace HRMS.Backend.Services
             if (payrolls == null || !payrolls.Any()) return;
 
             var salaries = await _repository.GetByEmployeeIdAsync(employeeId);
-            var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).First();
+            if (salaries == null || !salaries.Any()) return;
 
+            var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).First();
             foreach (var payroll in payrolls)
             {
                 payroll.TotalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
