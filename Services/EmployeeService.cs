@@ -16,6 +16,18 @@ namespace HRMS.Backend.Services
             _mapper = mapper;
         }
 
+        public async Task<EmployeeDTO?> GetByIdAsync(int id)
+        {
+            var employee = await _repository.GetByIdAsync(id);
+            return employee == null ? null : _mapper.Map<EmployeeDTO>(employee);
+        }
+
+        public async Task<IEnumerable<EmployeeDTO>> GetAllAsync()
+        {
+            var employees = await _repository.GetAllAsync(); 
+            return _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
+        }
+
         public async Task<EmployeeDTO> CreateAsync(EmployeeCreateDTO dto)
         {
             var employee = _mapper.Map<Employee>(dto);
@@ -38,18 +50,5 @@ namespace HRMS.Backend.Services
         {
             return await _repository.DeleteAsync(id);
         }
-
-        public async Task<EmployeeDTO?> GetByIdAsync(int id)
-        {
-            var employee = await _repository.GetByIdAsync(id);
-            return employee == null ? null : _mapper.Map<EmployeeDTO>(employee);
-        }
-
-        public async Task<IEnumerable<EmployeeDTO>> GetAllAsync()
-        {
-            var employees = await _repository.GetAllAsync(); 
-            return _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
-        }
-
     }
 }

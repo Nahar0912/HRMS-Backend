@@ -22,7 +22,6 @@ namespace HRMS.Backend.Controllers
             return Ok(employees);
         }
 
-
         [HttpGet("{id}")]
         [Authorize]    
         public async Task<IActionResult> Get(int id)

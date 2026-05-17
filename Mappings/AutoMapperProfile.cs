@@ -4,35 +4,35 @@ using HRMS.Backend.DTOs;
 
 namespace HRMS.Backend.Mappings
 {
+    public static class MappingExtensions
+    {
+        public static IMappingExpression<TSource, TDestination> IgnoreNull<TSource, TDestination>(
+            this IMappingExpression<TSource, TDestination> map)
+        {
+            map.ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+            return map;
+        }
+    }
+    
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            // Employee mappings
+
             CreateMap<EmployeeCreateDTO, Employee>();
-            CreateMap<EmployeeUpdateDTO, Employee>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<EmployeeUpdateDTO, Employee>().IgnoreNull();
             CreateMap<Employee, EmployeeDTO>();
 
-
-            // Salary mappings
             CreateMap<SalaryCreateDTO, Salary>();
-            CreateMap<SalaryUpdateDTO, Salary>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<SalaryUpdateDTO, Salary>().IgnoreNull();
             CreateMap<Salary, SalaryDTO>();
 
-
-            // Payroll mappings
             CreateMap<PayrollCreateDTO, Payroll>();
-            CreateMap<PayrollUpdateDTO, Payroll>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            CreateMap<Payroll, PayrollDTO>()
-                .ForMember(dest => dest.PayrollMonth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.PayrollMonth, DateTimeKind.Utc)))
-                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedAt, DateTimeKind.Utc)))
-                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.UpdatedAt, DateTimeKind.Utc)));
+            CreateMap<PayrollUpdateDTO, Payroll>().IgnoreNull();
+            CreateMap<Payroll, PayrollDTO>();
 
-
-            // User mappings
             CreateMap<RegisterDTO, User>();
-            CreateMap<UpdateUserDTO, User>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<UpdateUserDTO, User>().IgnoreNull();
         }
     }
-
 }

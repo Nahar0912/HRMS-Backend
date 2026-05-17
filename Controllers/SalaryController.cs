@@ -38,7 +38,6 @@ namespace HRMS.Backend.Controllers
             return Ok(salary);
         }
 
-        // POST:Salary
         [HttpPost]
         [Authorize]    
         public async Task<IActionResult> Create([FromBody] SalaryCreateDTO dto)

@@ -12,17 +12,28 @@ namespace HRMS.Backend.Services
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
-        private const decimal TAX_PERCENTAGE = 0.10m; 
+        private const decimal TAX_PERCENTAGE = 0.10m;
 
-        public PayrollService( IPayrollRepository repository, ISalaryRepository salaryRepository, IEmployeeRepository employeeRepository, IMapper mapper)
+        public PayrollService(IPayrollRepository repository, ISalaryRepository salaryRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _repository = repository;
             _salaryRepository = salaryRepository;
             _employeeRepository = employeeRepository;
             _mapper = mapper;
         }
+        
+        public async Task<IEnumerable<PayrollDTO>> GetAllAsync()
+        {
+            var payrolls = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<PayrollDTO>>(payrolls);
+        }
 
-        // Create payroll 
+        public async Task<PayrollDTO?> GetByIdAsync(int id)
+        {
+            var payroll = await _repository.GetByIdAsync(id);
+            return payroll == null ? null : _mapper.Map<PayrollDTO>(payroll);
+        }
+
         public async Task<PayrollDTO> CreateAsync(PayrollCreateDTO dto)
         {
             var existing = await _repository.GetByEmployeeAndMonthAsync(dto.EmployeeId, dto.PayrollMonth);
@@ -53,18 +64,6 @@ namespace HRMS.Backend.Services
 
             var created = await _repository.AddAsync(payroll);
             return _mapper.Map<PayrollDTO>(created);
-        }
-
-        public async Task<IEnumerable<PayrollDTO>> GetAllAsync()
-        {
-            var payrolls = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<PayrollDTO>>(payrolls);
-        }
-
-        public async Task<PayrollDTO?> GetByIdAsync(int id)
-        {
-            var payroll = await _repository.GetByIdAsync(id);
-            return payroll == null ? null : _mapper.Map<PayrollDTO>(payroll);
         }
 
         public async Task<PayrollDTO?> UpdateAsync(int id, PayrollUpdateDTO dto)

@@ -21,16 +21,6 @@ namespace HRMS.Backend.Repositories
             return user;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null) return false;
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
@@ -51,6 +41,16 @@ namespace HRMS.Backend.Repositories
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return user;
+        }
+        
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return false;
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

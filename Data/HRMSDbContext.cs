@@ -13,30 +13,24 @@ namespace HRMS.Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.HasMany(e => e.Salaries)
+                    .WithOne(s => s.Employee)
+                    .HasForeignKey(s => s.EmployeeId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Salaries)
-                .WithOne(s => s.Employee)
-                .HasForeignKey(s => s.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany(e => e.Payrolls)
+                    .WithOne(p => p.Employee)
+                    .HasForeignKey(p => p.EmployeeId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Payrolls)
-                .WithOne(p => p.Employee)
-                .HasForeignKey(p => p.EmployeeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                entity.HasIndex(e => e.Email).IsUnique();
+                entity.HasIndex(e => e.AccountNumber).IsUnique();
+            });
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
-                .IsUnique();
-
-            modelBuilder.Entity<Employee>()
-                .HasIndex(e => e.Email)
-                .IsUnique();
-
-            modelBuilder.Entity<Employee>()
-                .HasIndex(e => e.AccountNumber)
                 .IsUnique();
         }
     }

@@ -9,10 +9,6 @@ namespace HRMS.Backend.Repositories
     public class SalaryRepository : ISalaryRepository
     {
         private readonly HRMSDbContext _context;
-        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
-        {
-            return await _context.Employees.ToListAsync();
-        }
         public SalaryRepository(HRMSDbContext context)
         {
             _context = context;
@@ -38,6 +34,11 @@ namespace HRMS.Backend.Repositories
         public async Task<IEnumerable<Salary>> GetByEmployeeIdAsync(int employeeId)
         {
             return await _context.Salaries.Where(s => s.EmployeeId == employeeId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+        {
+            return await _context.Employees.ToListAsync();
         }
 
         public async Task<Salary> UpdateAsync(Salary salary)

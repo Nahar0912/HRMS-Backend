@@ -14,13 +14,6 @@ namespace HRMS.Backend.Repositories
             _context = context;
         }
 
-        public async Task<Payroll> AddAsync(Payroll payroll)
-        {
-            _context.Payrolls.Add(payroll);
-            await _context.SaveChangesAsync();
-            return payroll;
-        }
-
         public async Task<IEnumerable<Payroll>> GetAllAsync()
         {
             return await _context.Payrolls.Include(p => p.Employee).ToListAsync();
@@ -43,6 +36,13 @@ namespace HRMS.Backend.Repositories
                 && p.PayrollMonth.Month == payrollMonth.Month
                 && p.PayrollMonth.Year == payrollMonth.Year
             );
+        }
+
+        public async Task<Payroll> AddAsync(Payroll payroll)
+        {
+            _context.Payrolls.Add(payroll);
+            await _context.SaveChangesAsync();
+            return payroll;
         }
 
         public async Task<Payroll> UpdateAsync(Payroll payroll)

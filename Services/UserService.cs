@@ -40,17 +40,6 @@ namespace HRMS.Backend.Services
             return result == PasswordVerificationResult.Success ? user : null;
         }
 
-        public async Task<User> UpdateUserAsync(int userId, UpdateUserDTO dto)
-        {
-            var user = await _repository.GetByIdAsync(userId);
-            if (user == null) throw new Exception("User not found");
-
-            user.Username = dto.FullName ?? user.Username;
-            user.Phone = dto.Phone ?? user.Phone;
-            user.Address = dto.Address ?? user.Address;
-            return await _repository.UpdateAsync(user);
-        }
-
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _repository.GetAllAsync();
@@ -61,11 +50,6 @@ namespace HRMS.Backend.Services
             return await _repository.GetByIdAsync(id);
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
-        {
-            return await _repository.DeleteAsync(id);
-        }
-
         public Task<User?> GetUserByEmailAsync(string email)
         {
             throw new NotImplementedException();
@@ -74,6 +58,22 @@ namespace HRMS.Backend.Services
         public Task<User> CreateUserAsync(User user)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> UpdateUserAsync(int userId, UpdateUserDTO dto)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            if (user == null) throw new Exception("User not found");
+
+            user.Username = dto.FullName ?? user.Username;
+            user.Phone = dto.Phone ?? user.Phone;
+            user.Address = dto.Address ?? user.Address;
+            return await _repository.UpdateAsync(user);
+        }
+        
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            return await _repository.DeleteAsync(id);
         }
     }
 }
