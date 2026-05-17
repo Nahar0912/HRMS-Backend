@@ -16,38 +16,75 @@ namespace HRMS.Backend.Controllers
             _service = service;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _service.GetAllUsersAsync();
-            return Ok(users);
+            try
+            {
+                var users = await _service.GetAllUsersAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error retrieving users", error = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
-        [Authorize]    
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = await _service.GetUserByIdAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
+            try
+            {
+                var user = await _service.GetUserByIdAsync(id);
+                if (user == null)
+                    return NotFound(new { message = "User not found" });
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error retrieving user", error = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
-        [Authorize]    
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateUserDTO dto)
         {
-            var updated = await _service.UpdateUserAsync(id, dto);
-            return Ok(updated);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var updated = await _service.UpdateUserAsync(id, dto);
+                if (updated == null)
+                    return NotFound(new { message = "User not found" });
+
+                return Ok(updated);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error updating user", error = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
-        [Authorize]    
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = await _service.DeleteUserAsync(id);
-            if (!deleted) return NotFound();
-            return NoContent();
+            try
+            {
+                var deleted = await _service.DeleteUserAsync(id);
+                if (!deleted)
+                    return NotFound(new { message = "User not found" });
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error deleting user", error = ex.Message });
+            }
         }
     }
 }

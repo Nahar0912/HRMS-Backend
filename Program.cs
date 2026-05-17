@@ -13,26 +13,26 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/// ------------------- DbContext -------------------
+/// DbContext
 builder.Services.AddDbContext<HRMSDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ------------------- Repositories -------------------
+// Repositories
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ISalaryRepository, SalaryRepository>();
 builder.Services.AddScoped<IPayrollRepository, PayrollRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// ------------------- Services -------------------
+// Services
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ISalaryService, SalaryService>();
 builder.Services.AddScoped<IPayrollService, PayrollService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-// ------------------- Register PasswordHasher -------------------
+// Register PasswordHasher
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// ------------------- JWT Authentication -------------------
+// JWT Authentication 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? throw new Exception("JWT Key not found"));
 
@@ -60,10 +60,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// ------------------- AutoMapper -------------------
+// AutoMapper
 builder.Services.AddAutoMapper(cfg => { }, typeof(AutoMapperProfile).Assembly);
 
-// ------------------- CORS -------------------
+// CORS 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
@@ -73,7 +73,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod());
 });
 
-// ------------------- Controllers & Swagger -------------------
+// Controllers & Swagger 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
@@ -81,7 +81,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// ------------------- Middleware -------------------
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

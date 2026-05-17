@@ -95,11 +95,7 @@ namespace HRMS.Backend.Controllers
                 var payrollMonth = new DateTime(year, month, 1);
                 var payrolls = await _payrollService.GenerateMonthlyPayrollsAsync(payrollMonth);
 
-                return Ok(new
-                {
-                    message = $"Payrolls generated for {month}/{year}",
-                    data = payrolls
-                });
+                return Ok(new{ message = $"Payrolls generated for {month}/{year}", data = payrolls });
             }
             catch (Exception ex)
             {

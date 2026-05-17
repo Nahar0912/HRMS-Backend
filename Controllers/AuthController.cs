@@ -34,65 +34,84 @@ namespace HRMS.Backend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (await _context.Users.AnyAsync(u => u.Email == model.Email))
-                return BadRequest("Email already exists");
-
-            var user = new User
+            try
             {
-                Username = model.Username,
-                Email = model.Email,
-                Phone = model.Phone,
-                Address = model.Address,
-                IsActive = true
-            };
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
 
-            user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
+                if (existingUser != null)
+                    return Conflict(new { message = "Email already exists" });
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+                var user = new User
+                {
+                    Username = model.Username,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    Address = model.Address,
+                    IsActive = true
+                };
 
-            return Ok(new
+                user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    message = "User registered successfully",
+                    user = new
+                    {
+                        user.Id,
+                        user.Username,
+                        user.Email,
+                        user.Phone,
+                        user.Address
+                    }
+                });
+            }
+            catch (Exception ex)
             {
-                Message = "User registered successfully",
-                User = new { user.Id, user.Username, user.Email, user.Phone, user.Address }
-            });
+                return BadRequest(new { message = "Error during registration", error = ex.Message });
+            }
         }
 
-        // LOGIN 
+        // LOGIN
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-            if (user == null || !user.IsActive)
-                return Unauthorized("Invalid credentials");
-
-            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
-            if (result == PasswordVerificationResult.Failed)
-                return Unauthorized("Invalid credentials");
-
-            var token = GenerateJwtToken(user);
-            return Ok(new
+            try
             {
-                Token = token,
-            });
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user == null || !user.IsActive)
+                    return Unauthorized(new { message = "Invalid credentials" });
+
+                var result = _passwordHasher.VerifyHashedPassword( user, user.PasswordHash, model.Password );
+                if (result == PasswordVerificationResult.Failed)
+                    return Unauthorized(new { message = "Invalid credentials" });
+
+                var token = GenerateJwtToken(user);
+                return Ok(new{ message = "Login successful", token });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new{ message = "Error during login", error = ex.Message });
+            }
         }
 
+        // LOGOUT
         [HttpPost("logout")]
         [Authorize]
         public IActionResult Logout()
         {
-            return Ok(new { Message = "Logged out successfully" });
+            return Ok(new { message = "Logged out successfully" });
         }
 
-
-        //JWT TOKEN GENERATOR
+        // JWT GENERATOR
         private string GenerateJwtToken(User user)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -102,7 +121,6 @@ namespace HRMS.Backend.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
