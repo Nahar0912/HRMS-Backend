@@ -46,8 +46,6 @@ namespace HRMS.Backend.Services
                 throw new Exception("Salary not found for this employee.");
 
             decimal totalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
-
-            // Calculate tax 
             decimal tax = totalSalary * TAX_PERCENTAGE;
             decimal netSalary = totalSalary - tax;
 
