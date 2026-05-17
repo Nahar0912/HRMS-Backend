@@ -37,16 +37,16 @@ namespace HRMS.Backend.Controllers
             return Ok(payroll);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PayrollCreateDTO dto)
+        [HttpPost("generate")]
+        [Authorize]
+        public async Task<IActionResult> GeneratePayrolls([FromQuery] int year, [FromQuery] int month)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
-                var createdPayroll = await _payrollService.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = createdPayroll.Id }, createdPayroll);
+                var payrollMonth = new DateTime(year, month, 1);
+                var payrolls = await _payrollService.GenerateMonthlyPayrollsAsync(payrollMonth);
+
+                return Ok(new{ message = $"Payrolls generated for {month}/{year}", data = payrolls });
             }
             catch (Exception ex)
             {
@@ -84,23 +84,6 @@ namespace HRMS.Backend.Controllers
                 return NotFound(new { message = "Payroll record not found" });
 
             return Ok(new { message = "Payroll record deleted successfully" });
-        }
-
-        [HttpPost("generate")]
-        [Authorize]
-        public async Task<IActionResult> GeneratePayrolls([FromQuery] int year, [FromQuery] int month)
-        {
-            try
-            {
-                var payrollMonth = new DateTime(year, month, 1);
-                var payrolls = await _payrollService.GenerateMonthlyPayrollsAsync(payrollMonth);
-
-                return Ok(new{ message = $"Payrolls generated for {month}/{year}", data = payrolls });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
         }
     }
 }

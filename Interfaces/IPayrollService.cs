@@ -6,9 +6,8 @@ namespace HRMS.Backend.Interfaces
     {
         Task<IEnumerable<PayrollDTO>> GetAllAsync();
         Task<PayrollDTO?> GetByIdAsync(int id);
-        Task<PayrollDTO> CreateAsync(PayrollCreateDTO dto);
+        Task<IEnumerable<PayrollDTO>> GenerateMonthlyPayrollsAsync(DateTime month);
         Task<PayrollDTO?> UpdateAsync(int id, PayrollUpdateDTO dto);
         Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<PayrollDTO>> GenerateMonthlyPayrollsAsync(DateTime month);
     }
 }

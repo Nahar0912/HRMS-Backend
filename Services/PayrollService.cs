@@ -34,63 +34,6 @@ namespace HRMS.Backend.Services
             return payroll == null ? null : _mapper.Map<PayrollDTO>(payroll);
         }
 
-        public async Task<PayrollDTO> CreateAsync(PayrollCreateDTO dto)
-        {
-            var existing = await _repository.GetByEmployeeAndMonthAsync(dto.EmployeeId, dto.PayrollMonth);
-            if (existing != null)
-                throw new Exception("Payroll for this employee and month already exists.");
-
-            var salaries = await _salaryRepository.GetByEmployeeIdAsync(dto.EmployeeId);
-            var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).FirstOrDefault();
-            if (latestSalary == null)
-                throw new Exception("Salary not found for this employee.");
-
-            decimal totalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
-            decimal tax = totalSalary * TAX_PERCENTAGE;
-            decimal netSalary = totalSalary - tax;
-
-            var payroll = new Payroll
-            {
-                EmployeeId = dto.EmployeeId,
-                TotalSalary = totalSalary,
-                Tax = tax,
-                NetSalary = netSalary,
-                PayrollMonth = dto.PayrollMonth,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-
-            var created = await _repository.AddAsync(payroll);
-            return _mapper.Map<PayrollDTO>(created);
-        }
-
-        public async Task<PayrollDTO?> UpdateAsync(int id, PayrollUpdateDTO dto)
-        {
-            var payroll = await _repository.GetByIdAsync(id);
-            if (payroll == null) return null;
-
-            var salaries = await _salaryRepository.GetByEmployeeIdAsync(payroll.EmployeeId);
-            var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).FirstOrDefault();
-            if (latestSalary != null)
-                payroll.TotalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
-
-            payroll.Tax = payroll.TotalSalary * TAX_PERCENTAGE;
-            payroll.NetSalary = payroll.TotalSalary - payroll.Tax;
-
-            if (dto.PayrollMonth.HasValue)
-                payroll.PayrollMonth = dto.PayrollMonth.Value;
-
-            payroll.UpdatedAt = DateTime.UtcNow;
-
-            var updated = await _repository.UpdateAsync(payroll);
-            return _mapper.Map<PayrollDTO>(updated);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            return await _repository.DeleteAsync(id);
-        }
-
         public async Task<IEnumerable<PayrollDTO>> GenerateMonthlyPayrollsAsync(DateTime month)
         {
             var employees = await _employeeRepository.GetAllAsync();
@@ -127,5 +70,33 @@ namespace HRMS.Backend.Services
 
             return _mapper.Map<IEnumerable<PayrollDTO>>(createdPayrolls);
         }
+
+        public async Task<PayrollDTO?> UpdateAsync(int id, PayrollUpdateDTO dto)
+        {
+            var payroll = await _repository.GetByIdAsync(id);
+            if (payroll == null) return null;
+
+            var salaries = await _salaryRepository.GetByEmployeeIdAsync(payroll.EmployeeId);
+            var latestSalary = salaries.OrderByDescending(s => s.EffectiveFrom).FirstOrDefault();
+            if (latestSalary != null)
+                payroll.TotalSalary = latestSalary.BasicSalary + latestSalary.Bonus - latestSalary.Deduction;
+
+            payroll.Tax = payroll.TotalSalary * TAX_PERCENTAGE;
+            payroll.NetSalary = payroll.TotalSalary - payroll.Tax;
+
+            if (dto.PayrollMonth.HasValue)
+                payroll.PayrollMonth = dto.PayrollMonth.Value;
+
+            payroll.UpdatedAt = DateTime.UtcNow;
+
+            var updated = await _repository.UpdateAsync(payroll);
+            return _mapper.Map<PayrollDTO>(updated);
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            return await _repository.DeleteAsync(id);
+        }
+
     }
 }
