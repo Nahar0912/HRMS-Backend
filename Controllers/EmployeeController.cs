@@ -1,5 +1,4 @@
 using HRMS.Backend.DTOs;
-using HRMS.Backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

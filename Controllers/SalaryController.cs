@@ -1,4 +1,3 @@
-using AutoMapper;
 using HRMS.Backend.DTOs;
 using HRMS.Backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +10,10 @@ namespace HRMS.Backend.Controllers
     public class SalaryController : ControllerBase
     {
         private readonly ISalaryService _salaryService;
-        private readonly IMapper _mapper;
 
-        public SalaryController(ISalaryService salaryService, IMapper mapper)
+        public SalaryController(ISalaryService salaryService)
         {
             _salaryService = salaryService;
-            _mapper = mapper;
         }
 
         [HttpGet]
